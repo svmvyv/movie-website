@@ -1,43 +1,30 @@
-const API_KEY = 'api_key=c485dd249a7a925a38936033459731d5';
-const BASE_URL = 'https://api.themoviedb.org/3';
-const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&' + API_KEY;
-const IMG_URL = 'https://image.tmdb.org/t/p/w500';
-const searchURL = BASE_URL + '/search/movie?' + API_KEY;
+const API_KEY = 'c485dd249a7a925a38936033459731d5';
+const IMG_URL = 'https://image.tmdb.org/t/p/original';
 
 
+axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
+    .then(function(response) {
+        // handle success
+        console.log(response.data.results);
+        document.getElementById("trending-list").innerHTML = response.data.results.map(Item =>
+            `   <div class="movie-card">
+        <img src="${IMG_URL+Item.poster_path}" alt="movie poster" class="movie-poster">
+        <div class="movie-info">
 
-getMovies(API_URL);
+            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Details
+              </button>
+        </div>
+        <div class="container-fluid p-3 justify-content-center">
+            <i class="fa-solid fa-bookmark"></i>
+            <i class="fa-solid fa-heart-circle-plus"></i>
+        </div>
 
-function getMovies(url) {
-    fetch(url).then(res => res.json()).then(data => {
-        console.log(data.results)
-        showMovies(data.results);
 
+    </div>`
+        )
     })
-
-}
-
-
-function showMovies(data) {
-
-    data.forEach(movie => {
-        const { title, poster_path, vote_average, overview, id } = movie;
-        const moviecard = document.querySelector('carousel-inner');
-        // moviecard.classList.add('movie');
-        moviecard.innerHTML = `
-             <img src="${poster_path? IMG_URL+poster_path: "http://via.placeholder.com/1080x1580" }" alt="${title}">
-            <div class="movie-info">
-                <h3>${title}</h3>
-                <span>${vote_average}</span>
-            </div>
-            <div class="overview">
-                <h3>Overview</h3>
-                ${overview}
-                <br/> 
-                <button class="know-more" id="${id}">Know More</button
-            </div>
-        
-        `
-
-    })
-}
+    .catch(function(error) {
+        // handle error
+        console.log(error);
+    });

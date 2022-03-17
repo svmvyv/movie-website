@@ -18,10 +18,13 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
              <i class="bi bi-heart"></i>
           </div>
         </div>
-      
-
-
-    </div>`
+    </div>
+    <div id="movieDetails" class= "modal fade">
+    <div class=modal-dialong">
+    </div>
+    </div>
+    
+    `
         ).join('')
     })
     .catch(function(error) {
@@ -69,9 +72,13 @@ function moviesCat(ID, card) {
                      <i class="bi bi-heart"></i>
                   </div>
                 </div>
-              
-        
-            </div>`
+            
+            </div>
+            
+            <div id="movieDetails" class= "modal fade">
+    <div class=modal-dialong">
+    </div>
+    </div>`
 
 
             ).join('')

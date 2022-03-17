@@ -30,6 +30,57 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
     });
 
 
+
+// MOVIES CARDS NAMES
+
+let actionCard = document.getElementById("action");
+moviesCat(28, actionCard);
+
+
+let comedyCard = document.getElementById("comedy");
+moviesCat(35, comedyCard);
+
+let crimeCard = document.getElementById("crime");
+moviesCat(80, crimeCard);
+
+let dramaCard = document.getElementById("drama");
+moviesCat(18, dramaCard);
+
+let animCard = document.getElementById("animation");
+moviesCat(16, animCard);
+
+let romCard = document.getElementById("romance");
+moviesCat(10749, romCard);
+
+function moviesCat(ID, card) {
+    axios
+        .get(`https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=${ID}`)
+        .then((response) => {
+            console.log(response.data.results)
+            card.innerHTML = response.data.results.map(item =>
+                `   <div class="movie-card">
+                <img src="${IMG_URL+item.poster_path}" alt="movie poster" class="movie-poster">
+                <div class="movie-info d-flex">
+                    <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="movieDeets(${item.id})">
+                        Details
+                      </button>
+                     <div class="text-white p-1 float-end">
+                     <i class="bi bi-bookmark"></i>
+                     <i class="bi bi-heart"></i>
+                  </div>
+                </div>
+              
+        
+            </div>`
+
+
+            ).join('')
+
+        })
+}
+
+
+
 function movieDeets(MV_ID) {
     console.log(MV_ID, "ID");
     axios.get(`https://api.themoviedb.org/3/movie/${MV_ID}?api_key=${API_KEY}&append_to_response=videos,similar,credits`)
@@ -57,13 +108,9 @@ function movieDeets(MV_ID) {
             let yearOf = response.data.release_date.substr(0, 4);
             // rating
 
-
-
-
             document.getElementById("movieDetails").innerHTML =
 
-                `
-                <div class="card bg-dark text-white">
+                `<div class="card bg-dark text-white">
                 <div class="card-body mv-container">
                     <img src="${IMG_URL+item.backdrop_path}" class="card-img" alt="...">
                     <div class="card-img-overlay ">
@@ -104,5 +151,3 @@ function movieDeets(MV_ID) {
 
         })
 }
-
-movieDeets();

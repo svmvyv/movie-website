@@ -10,7 +10,7 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
             `   <div class="movie-card">
         <img src="${IMG_URL+Item.poster_path}" alt="movie poster" class="movie-poster">
         <div class="movie-info d-flex">
-            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="movieDeets(${Item.id})">
                 Details
               </button>
              <div class="text-white p-1 float-end">
@@ -22,9 +22,87 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
 
 
     </div>`
-        )
+        ).join('')
     })
     .catch(function(error) {
         // handle error
         console.log(error);
     });
+
+
+function movieDeets(MV_ID) {
+    console.log(MV_ID, "ID");
+    axios.get(`https://api.themoviedb.org/3/movie/${MV_ID}?api_key=${API_KEY}&append_to_response=videos,similar,credits`)
+        .then((response) => {
+            console.log(response.data)
+
+            let item = response.data;
+            let char = item.credits.cast;
+            var charNames = [];
+            for (var i = 0; i < 4; i++) {
+                charNames.push(char[i].name);
+            }
+            let genre = response.data.genres;
+            var genreList = genre.map((genre) => {
+                return `${genre.name}`;
+            }).join(" | ");
+            let video = response.data.videos.results;
+            console.log(video);
+            let similarMovies = response.data.similar.results;
+            console.log(similarMovies);
+            var similarMoviesList = similarMovies.map((element) => {
+                    return element;
+                })
+                // year
+            let yearOf = response.data.release_date.substr(0, 4);
+            // rating
+
+
+
+
+            document.getElementById("movieDetails").innerHTML =
+
+                `
+                <div class="card bg-dark text-white">
+                <div class="card-body mv-container">
+                    <img src="${IMG_URL+item.backdrop_path}" class="card-img" alt="...">
+                    <div class="card-img-overlay ">
+                        <div id="left">
+                            <h1>${item.title}</h1>
+                            <div id="info">
+                                <ul id="menu">
+                                    <li>${yearOf}</li>
+                                    <li>${item.runtime} min </li>
+                                    <li>${genreList}</li>
+                                    <br>
+                                    <li>Starring: ${charNames}</li>
+
+                                </ul>
+                            </div>
+                            <div id="rating">
+                                <h3>IMDb Rating:</h3>
+                                <div id="rates"></div>
+                            </div>
+                        </div>
+                        <div id="right">
+                            ${item.overview}
+                            <div id="trailer">
+                                <i class="fa fa-play" aria-hidden="true"></i>
+                                <h4>WATCH TRAILER
+                                    <h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <h1>HELLOOO</h1>
+                    </div>
+                </div>
+            </div>
+       
+        
+            `
+
+        })
+}
+
+movieDeets();

@@ -27,7 +27,7 @@ button {
 
 .movie-slider::before {
     content: '';
-    height: 438px;
+    height: 370px;
     width: 100px;
     display: block;
     background: linear-gradient(to right, black, transparent);
@@ -38,7 +38,7 @@ button {
 
 .movie-slider::after {
     content: '';
-    height: 438px;
+    height: 370px;
     width: 100px;
     display: block;
     background: linear-gradient(to left, black, transparent);
@@ -109,10 +109,109 @@ button {
     font-weight: 500;
     background-color: crimson;
     border-radius: 50px;
+    padding: 1px 10px 1px 10px;
     border: 3px solid transparent;
     color: white;
 }
 
 .bi::hover {
     color: crimson;
+}
+
+.mv-container {
+    width: 881.6px;
+    height: 530px;
+    background-size: cover;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 250px;
+    left: 600px;
+    z-index: 1;
+    display: flex;
+}
+
+#left {
+    width: 70%;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+}
+
+#left>h1 {
+    letter-spacing: 0.2em;
+    font-size: 54px;
+    padding-left: 16px;
+    padding-top: 16px;
+    text-shadow: 2px 2px 8px #292929;
+}
+
+#info {
+    padding-top: 15px;
+    padding-left: 16px;
+    font-size: 14px;
+    /*   font-family: 'Merriweather Sans', sans-serif; */
+    font-family: 'Exo', sans-serif;
+    text-shadow: 2px 2px 8px #292929;
+}
+
+#info>ul#menu li {
+    display: inline;
+    padding-right: 8px;
+    letter-spacing: 0.1em;
+}
+
+#rates {
+    margin: 20px;
+    width: 50px;
+    height: 50px;
+}
+
+#rating {
+    display: flex;
+    padding-left: 25px;
+}
+
+#rating>h3 {
+    padding-top: 35px;
+    font-size: 14px;
+}
+
+#right {
+    width: 50%;
+    padding-top: 50px;
+    font-size: 18px;
+    float: right;
+    padding-right: 10px;
+    font-family: 'Raleway Dots', sans-serif;
+    color: white;
+    text-shadow: 2px 2px 8px #292929;
+    /*   font-weight:bold; */
+}
+
+#trailer {
+    margin-top: 10px;
+    margin-left: 10px;
+    background-color: crimson;
+    color: #ffffff;
+    border-radius: 1.2em;
+    width: 70%;
+    padding: 6px;
+    padding-left: 15px;
+    display: flex;
+    justify-content: space-around;
+    cursor: pointer;
+    align-items: center;
+}
+
+#trailer>h4 {
+    padding-left: 5px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-family: 'Raleway', sans-serif;
+}
+
+.card-footer {
+    margin-top: 100px;
 }

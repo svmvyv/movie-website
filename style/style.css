@@ -71,7 +71,7 @@ button {
 }
 
 .movie-card {
-    background-color: white;
+    background-color: rgb(44, 44, 44);
     border-radius: 10px;
     width: 182px;
     box-shadow: 0px 5px 10px rgb(17, 17, 17);
@@ -94,7 +94,8 @@ button {
 
 .movie-info {
     padding: 15px 10px;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between
 }
 
 .movie-title {
@@ -105,13 +106,13 @@ button {
 }
 
 .btn-look {
-    font-weight: 700;
+    font-weight: 500;
     background-color: crimson;
-    padding: 8px 44px;
     border-radius: 50px;
     border: 3px solid transparent;
     color: white;
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 50px;
+}
+
+.bi::hover {
+    color: crimson;
 }

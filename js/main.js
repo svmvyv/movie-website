@@ -7,10 +7,10 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
         // handle success
         console.log(response.data.results);
         document.getElementById("trending-list").innerHTML = response.data.results.map(Item =>
-            `   <div class="movie-card">
+            `<div class="movie-card">
         <img src="${IMG_URL+Item.poster_path}" alt="movie poster" class="movie-poster">
         <div class="movie-info d-flex">
-            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="movieDeets(${Item.id})">
+            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#detailCard" onclick="movieDeets(${Item.id})">
                 Details
               </button>
              <div class="text-white p-1 float-end">
@@ -19,13 +19,12 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
           </div>
         </div>
     </div>
-    <div id="movieDetails" class= "modal fade">
-    <div class=modal-dialong">
-    </div>
-    </div>
+    <div class="modal fade" id="detailCard" tabindex="-1" aria-labelledby="detailCard" aria-hidden="true">
+  <div class="modal-dialog">
+  </div>
+  </div>
     
-    `
-        ).join('')
+    `).join('')
     })
     .catch(function(error) {
         // handle error
@@ -38,7 +37,6 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
 
 let actionCard = document.getElementById("action");
 moviesCat(28, actionCard);
-
 
 let comedyCard = document.getElementById("comedy");
 moviesCat(35, comedyCard);
@@ -61,10 +59,10 @@ function moviesCat(ID, card) {
         .then((response) => {
             console.log(response.data.results)
             card.innerHTML = response.data.results.map(item =>
-                `   <div class="movie-card">
+                `  <div class="movie-card">
                 <img src="${IMG_URL+item.poster_path}" alt="movie poster" class="movie-poster">
                 <div class="movie-info d-flex">
-                    <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="movieDeets(${item.id})">
+                    <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#detailCard" onclick="movieDeets(${item.id})">
                         Details
                       </button>
                      <div class="text-white p-1 float-end">
@@ -72,13 +70,11 @@ function moviesCat(ID, card) {
                      <i class="bi bi-heart"></i>
                   </div>
                 </div>
-            
             </div>
-            
-            <div id="movieDetails" class= "modal fade">
-    <div class=modal-dialong">
-    </div>
-    </div>`
+            <div class="modal fade" id="detailCard" tabindex="-1" aria-labelledby="detailCard" aria-hidden="true">
+          <div class="modal-dialog">
+          </div>
+          </div>`
 
 
             ).join('')
@@ -115,7 +111,7 @@ function movieDeets(MV_ID) {
             let yearOf = response.data.release_date.substr(0, 4);
             // rating
 
-            document.getElementById("movieDetails").innerHTML =
+            document.getElementById('detailCard').innerHTML =
 
                 `<div class="card bg-dark text-white">
                 <div class="card-body mv-container">

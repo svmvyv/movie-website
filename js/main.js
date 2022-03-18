@@ -6,16 +6,16 @@ axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
     .then(function(response) {
         // handle success
         console.log(response.data.results);
-        document.getElementById("trending-list").innerHTML = response.data.results.map(Item =>
+        document.getElementById("trending-list").innerHTML = response.data.results.map(item =>
             `<div class="movie-card">
-        <img src="${IMG_URL+Item.poster_path}" alt="movie poster" class="movie-poster">
+        <img src="${IMG_URL+item.poster_path}" alt="movie poster" class="movie-poster">
         <div class="movie-info d-flex">
-            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#detailCard" onclick="movieDeets(${Item.id})">
+            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#detailCard" onclick="movieDeets(${item.id})">
                 Details
               </button>
              <div class="text-white p-1 float-end">
-             <i class="bi bi-bookmark"></i>
-             <i class="bi bi-heart"></i>
+             <a><i class="bi bi-bookmark" onclick="watchMenu(${item.id})"></i></a>
+             <a><i class="bi bi-heart" onclick="favMenu(${item.id})"></i></a>
           </div>
         </div>
     </div>
@@ -102,12 +102,7 @@ function movieDeets(MV_ID) {
             }).join(" | ");
             let video = response.data.videos.results;
             console.log(video);
-            let similarMovies = response.data.similar.results;
-            console.log(similarMovies);
-            var similarMoviesList = similarMovies.map((element) => {
-                    return element;
-                })
-                // year
+            // year
             let yearOf = response.data.release_date.substr(0, 4);
             // rating
 
@@ -115,7 +110,7 @@ function movieDeets(MV_ID) {
 
                 `<div class="card bg-dark text-white">
                 <div class="card-body mv-container">
-                    <img src="${IMG_URL+item.backdrop_path}" class="card-img" alt="...">
+                    <img src="${IMG_URL+item.backdrop_path}" class="card-img-top" alt="...">
                     <div class="card-img-overlay ">
                         <div id="left">
                             <h1>${item.title}</h1>
@@ -137,16 +132,17 @@ function movieDeets(MV_ID) {
                         <div id="right">
                             ${item.overview}
                             <div id="trailer">
-                                <i class="fa fa-play" aria-hidden="true"></i>
-                                <h4>WATCH TRAILER
+                            <i class="bi bi-play-fill fs-3"></i>
+                                <h4><a href="${video}">WATCH TRAILER</a>
                                     <h4>
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <h1>HELLOOO</h1>
-                    </div>
                 </div>
+                
+            </div>
+            
+            
             </div>
        
         
@@ -154,3 +150,16 @@ function movieDeets(MV_ID) {
 
         })
 }
+
+
+function favMenu(movie_ID) {
+    if (!favecard.includes(movie_ID)) {
+        favecard.push(movie_ID);
+        console.log(favecard, 'id_FaveList');
+        //Setter
+        localStorage.setitem("favecard", JSON.stringify(fv_movie));
+        console.log(localStorage.favecard);
+    }
+}
+// Getter
+fv_movie = [...JSON.parse(localStorage.getitem("favecard"))];

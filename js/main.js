@@ -59,15 +59,15 @@ function moviesCat(ID, card) {
         .then((response) => {
             console.log(response.data.results)
             card.innerHTML = response.data.results.map(item =>
-                `  <div class="movie-card">
+                `  <div class="movie-card" id="mv">
                 <img src="${IMG_URL+item.poster_path}" alt="movie poster" class="movie-poster">
                 <div class="movie-info d-flex">
                     <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#detailCard" onclick="movieDeets(${item.id})">
                         Details
                       </button>
                      <div class="text-white p-1 float-end">
-                     <i class="bi bi-bookmark"></i>
-                     <i class="bi bi-heart"></i>
+                     <a><i class="bi bi-bookmark" onclick="watchMenu(${item.id})"></i></a>
+                     <a><i class="bi bi-heart" onclick="favMenu(${item.id})"></i></a>
                   </div>
                 </div>
             </div>
@@ -151,15 +151,6 @@ function movieDeets(MV_ID) {
         })
 }
 
+// local storage
 
-function favMenu(movie_ID) {
-    if (!favecard.includes(movie_ID)) {
-        favecard.push(movie_ID);
-        console.log(favecard, 'id_FaveList');
-        //Setter
-        localStorage.setitem("favecard", JSON.stringify(fv_movie));
-        console.log(localStorage.favecard);
-    }
-}
-// Getter
-fv_movie = [...JSON.parse(localStorage.getitem("favecard"))];
+// const favecard = document.getElementById("mv");

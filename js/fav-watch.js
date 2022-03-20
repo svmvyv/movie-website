@@ -8,11 +8,6 @@ function favMenu(movie_ID) {
 
 }
 
-function getFav() {
-    var x = JSON.parse(localStorage.getItem("favemovies"));
-    console.log(x)
-
-}
 
 
 // // Getter

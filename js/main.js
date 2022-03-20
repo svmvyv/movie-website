@@ -153,4 +153,32 @@ function movieDeets(MV_ID) {
 
 // local storage
 
-// const favecard = document.getElementById("mv");
+function getFav() {
+    const x = JSON.parse(localStorage.getItem("favemovies"));
+    axios.get(`https://api.themoviedb.org/3/movie/${x}?api_key=${API_KEY}&language=en-US`)
+        .then((response) => {
+            document.getElementById("try").innerHTML = response.data.results.map(item =>
+                `  <div class="movie-card" id="mv">
+        <img src="${IMG_URL+item.poster_path}" alt="movie poster" class="movie-poster">
+        <div class="movie-info d-flex">
+            <button type="button" class="btn-look btn-danger" data-bs-toggle="modal" data-bs-target="#detailCard" onclick="movieDeets(${item.id})">
+                Details
+              </button>
+             <div class="text-white p-1 float-end">
+             <a><i class="bi bi-bookmark" onclick="watchMenu(${item.id})"></i></a>
+             <a><i class="bi bi-heart" onclick="favMenu(${item.id})"></i></a>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detailCard" tabindex="-1" aria-labelledby="detailCard" aria-hidden="true">
+  <div class="modal-dialog">
+  </div>
+  </div>`
+
+
+            ).join('')
+
+        })
+}
+
+window.onload = getFav();
